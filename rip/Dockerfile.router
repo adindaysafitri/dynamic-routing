@@ -1,0 +1,14 @@
+# Dockerfile for FRR routers
+FROM ubuntu:22.04
+
+RUN apt-get update && apt-get install -y \
+    frr frr-pythontools iproute2 iputils-ping traceroute\
+    && rm -rf /var/lib/apt/lists/*
+
+ARG CONFIG_FILE    
+COPY router-configs/${CONFIG_FILE} /etc/frr/frr.conf
+
+COPY common-configs/daemons /etc/frr/daemons
+COPY common-configs/frr.vtysh.conf /etc/frr/vtysh.conf
+
+CMD ["bash", "-c", "sysctl net.ipv4.ip_forward=1 && /usr/lib/frr/frrinit.sh start && tail -f /dev/null"]

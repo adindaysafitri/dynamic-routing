@@ -1,0 +1,139 @@
+version: "3.8"
+
+services:
+  router1:
+    build:
+      context: .
+      dockerfile: Dockerfile.router
+      args:
+        CONFIG_FILE: frr-router1.conf
+    container_name: rip-router1
+    privileged: true
+    networks:
+      link1:
+        ipv4_address: 192.168.40.2
+      lan1:
+        ipv4_address: 192.168.10.2
+
+  router2:
+    build:
+      context: .
+      dockerfile: Dockerfile.router
+      args:
+        CONFIG_FILE: frr-router2.conf
+    container_name: rip-router2
+    privileged: true
+    networks:
+      link1:
+        ipv4_address: 192.168.40.3
+      link2:
+        ipv4_address: 192.168.50.2
+      lan2:
+        ipv4_address: 192.168.20.2
+
+  router3:
+    build:
+      context: .
+      dockerfile: Dockerfile.router
+      args:
+        CONFIG_FILE: frr-router3.conf
+    container_name: rip-router3
+    privileged: true
+    networks:
+      link2:
+        ipv4_address: 192.168.50.3
+      lan3:
+        ipv4_address: 192.168.30.2
+
+  pc0:
+    build:
+      context: .
+      dockerfile: Dockerfile.pc
+      args:
+        DEFAULT_GW: 192.168.10.2
+    container_name: rip-pc0
+    privileged: true
+    networks:
+      lan1:
+        ipv4_address: 192.168.10.3
+
+  pc1:
+    build:
+      context: .
+      dockerfile: Dockerfile.pc
+      args:
+        DEFAULT_GW: 192.168.10.2
+    container_name: rip-pc1
+    privileged: true
+    networks:
+      lan1:
+        ipv4_address: 192.168.10.4
+
+  pc2:
+    build:
+      context: .
+      dockerfile: Dockerfile.pc
+      args:
+        DEFAULT_GW: 192.168.20.2
+    container_name: rip-pc2
+    privileged: true
+    networks:
+      lan2:
+        ipv4_address: 192.168.20.3
+
+  pc3:
+    build:
+      context: .
+      dockerfile: Dockerfile.pc
+      args:
+        DEFAULT_GW: 192.168.20.2
+    container_name: rip-pc3
+    privileged: true
+    networks:
+      lan2:
+        ipv4_address: 192.168.20.4
+
+  pc4:
+    build:
+      context: .
+      dockerfile: Dockerfile.pc
+      args:
+        DEFAULT_GW: 192.168.30.2
+    container_name: rip-pc4
+    privileged: true
+    networks:
+      lan3:
+        ipv4_address: 192.168.30.3
+
+  pc5:
+    build:
+      context: .
+      dockerfile: Dockerfile.pc
+      args:
+        DEFAULT_GW: 192.168.30.2
+    container_name: rip-pc5
+    privileged: true
+    networks:
+      lan3:
+        ipv4_address: 192.168.30.4
+
+networks:
+  lan1:
+    external:
+       name: lan1
+
+  lan2:
+    external:
+        name: lan2
+
+  lan3:
+    external:
+        name: lan3
+
+  link1:
+    external:
+        name: link1
+
+  link2:
+   external:
+        name: link2

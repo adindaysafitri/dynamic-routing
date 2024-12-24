@@ -1,0 +1,9 @@
+FROM alpine:latest
+
+# Install tools like iproute2 and iputils for networking tools
+RUN apk add --no-cache bash iproute2 iputils
+
+ARG DEFAULT_GW
+ENV DEFAULT_GW=${DEFAULT_GW}
+
+CMD ["bash", "-c", "ip route del default && ip route add default via $DEFAULT_GW && tail -f /dev/null"]
