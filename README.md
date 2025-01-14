@@ -42,13 +42,6 @@ docker network create --subnet 192.168.50.0/29 link2 </pre>
             </ul>
         </li>
       </ol>
-      <div>
-        <strong>Warning:</strong> Because all three protocol (RIP, BGP, OSPF) use the same networks, 
-        make sure stop all running containers before build or run the other Docker Compose file for other routing protocols in this project with the following command:
-        <pre>docker stop $(sudo docker ps -aq)</pre>
-        <p>Optional: To clean up stopped containers, run:</p>
-        <pre>docker container prune</pre>
-      </div>
       <h2>Features</h2>
         <ul>
           <li>Simulates dynamic routing protocols in a containerized environment.</li>
